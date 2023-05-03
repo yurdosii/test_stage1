@@ -1,7 +1,7 @@
 from fastapi import Depends, FastAPI
 
 from .auth_api.views import router as auth_router
-from .middlewares import verify_token
+from .middlewares import verify_admin, verify_token
 from .users_api.views import router as users_router
 
 app = FastAPI()
@@ -17,3 +17,8 @@ async def read_root():
 @app.get("/protected")
 async def read_protected_root(_: str = Depends(verify_token)):
     return {"Hello": "Protected World"}
+
+
+@app.get("/protected_admin")
+async def read_protected_admin_root(_: str = Depends(verify_admin)):
+    return {"Hello": "Protected World for Admin"}

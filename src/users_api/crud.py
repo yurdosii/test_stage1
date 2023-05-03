@@ -9,8 +9,11 @@ from .models import PyObjectId, User, UserCreate, UserUpdate
 
 
 async def create_user(user: UserCreate) -> User:
-    user_data = user.dict()
-    user_data["created_at"] = datetime.datetime.now()
+    now = datetime.datetime.now()
+
+    user_data = dict(user)
+    user_data["created_at"] = now
+    user_data["last_login"] = now
     user_data["hashed_pass"] = get_password_hash(user.password)
 
     collection = await get_user_collection()
@@ -24,7 +27,7 @@ async def update_user_by_id(id: PyObjectId, user: UserUpdate) -> User:
     collection = await get_user_collection()
     db_user = await collection.find_one_and_update(
         {"_id": id},
-        {"$set": user.dict()},
+        {"$set": dict(user)},
         return_document=ReturnDocument.AFTER,
     )
     return db_user

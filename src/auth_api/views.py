@@ -3,7 +3,7 @@ import datetime
 from fastapi import APIRouter, HTTPException, status
 
 from src.test_stage1.settings import ACCESS_TOKEN_EXPIRE_MINUTES
-from src.users_api.crud import get_user_by_first_name
+from src.users_api.crud import get_user_by_first_name, update_user_by_id
 
 from .models import Token, UserAuth
 from .shortcuts import create_access_token, verify_password
@@ -29,6 +29,10 @@ async def get_access_token(auth_data: UserAuth):
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+
+    # update last_login datetime
+    user.last_login = datetime.datetime.now()
+    await update_user_by_id(user.id, user)
 
     access_token_expires = datetime.timedelta(
         minutes=ACCESS_TOKEN_EXPIRE_MINUTES
