@@ -10,6 +10,9 @@ packages = [{include = "stage1_app"}]
 python = "^3.11"
 fastapi = "^0.95.1"
 uvicorn = {extras = ["standard"], version = "^0.22.0"}
+pymongo = "^4.3.3"
+motor = "^3.1.2"
+flake8-pyproject = "^1.2.3"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -22,3 +25,29 @@ pre-commit = "^3.3.1"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 79
+target-version = ['py311']
+exclude = '''
+  /(
+    \.git
+    | __pycache__
+  )/
+'''
+
+[tool.flake8]
+max-line-length = 79
+exclude = [".git", "__pycache__"]
+
+[tool.isort]
+profile = "black"
+src_paths = ["./src"]
+force_alphabetical_sort_within_sections = true
+virtual_env = "./.venv/"
+
+[[tool.mypy.overrides]]
+module = [
+  "motor.*"
+]
+ignore_missing_imports = true
