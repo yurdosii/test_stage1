@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import Response
 
-from src.middlewares import verify_token
+from src.middlewares import verify_admin, verify_token
 
 from . import crud
 from .models import PyObjectId, User, UserCreate, UserUpdate
@@ -10,10 +10,7 @@ router = APIRouter(prefix="/users", tags=["user"])
 
 
 @router.post("/", response_model=User)
-async def create_user(
-    user: UserCreate,
-    _: str = Depends(verify_token),
-):
+async def create_user(user: UserCreate):
     return await crud.create_user(user)
 
 
@@ -21,7 +18,7 @@ async def create_user(
 async def update_user_by_id(
     id: PyObjectId,
     user: UserUpdate,
-    _: str = Depends(verify_token),
+    _: str = Depends(verify_admin),
 ):
     db_user = await crud.update_user_by_id(id, user)
     if not db_user:

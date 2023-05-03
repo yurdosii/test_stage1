@@ -32,7 +32,7 @@ class UserUpdate(UserBase):
 class User(UserBase):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     created_at: datetime.datetime
-    last_login: datetime.datetime | None
+    last_login: datetime.datetime
     hashed_pass: str
 
     def dict(self, **kwargs):
