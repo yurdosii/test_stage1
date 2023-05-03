@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "stage1-app"
+version = "0.1.0"
+description = ""
+authors = ["Yurii Kosiv <yurdosii.ksv@gmail.com>"]
+readme = "README.md"
+packages = [{include = "stage1_app"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.95.1"
+uvicorn = {extras = ["standard"], version = "^0.22.0"}
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+flake8 = "^6.0.0"
+isort = "^5.12.0"
+mypy = "^1.2.0"
+pre-commit = "^3.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
