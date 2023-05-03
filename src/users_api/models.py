@@ -3,24 +3,9 @@ import datetime
 from bson import ObjectId
 from pydantic import BaseModel, Field, validator
 
+from src.models import PyObjectId
+
 from .enums import UserRole
-
-
-class PyObjectId(ObjectId):
-    @classmethod
-    def __get_validators__(cls):
-        yield cls.validate
-
-    @classmethod
-    def validate(cls, v):
-        if not ObjectId.is_valid(v):
-            raise ValueError("Invalid objectid")
-        return ObjectId(v)
-
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        # to fix 'ValueError: Value not declarable with JSON Schema'
-        field_schema.update(type="string")
 
 
 class UserBase(BaseModel):
@@ -37,7 +22,7 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    hashed_pass: str
+    password: str
 
 
 class UserUpdate(UserBase):

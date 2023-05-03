@@ -2,6 +2,8 @@ import datetime
 
 from pymongo import ReturnDocument
 
+from src.auth_api.shortcuts import get_password_hash
+
 from .db import get_user_collection
 from .models import PyObjectId, User, UserCreate, UserUpdate
 
@@ -9,6 +11,7 @@ from .models import PyObjectId, User, UserCreate, UserUpdate
 async def create_user(user: UserCreate) -> User:
     user_data = user.dict()
     user_data["created_at"] = datetime.datetime.now()
+    user_data["hashed_pass"] = get_password_hash(user.password)
 
     collection = await get_user_collection()
     result = await collection.insert_one(user_data)
@@ -44,4 +47,14 @@ async def get_users(limit: int) -> list[User]:
 async def get_user_by_id(id: PyObjectId) -> User | None:
     collection = await get_user_collection()
     db_user = await collection.find_one({"_id": id})
+    if db_user:
+        db_user = User(**db_user)
+    return db_user
+
+
+async def get_user_by_first_name(first_name: str) -> User | None:
+    collection = await get_user_collection()
+    db_user = await collection.find_one({"first_name": first_name})
+    if db_user:
+        db_user = User(**db_user)
     return db_user

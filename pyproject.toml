@@ -13,6 +13,8 @@ uvicorn = {extras = ["standard"], version = "^0.22.0"}
 pymongo = "^4.3.3"
 motor = "^3.1.2"
 flake8-pyproject = "^1.2.3"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 
 
 [tool.poetry.group.dev.dependencies]
@@ -48,6 +50,8 @@ virtual_env = "./.venv/"
 
 [[tool.mypy.overrides]]
 module = [
-  "motor.*"
+  "motor.*",
+  "jose.*",
+  "passlib.context.*",
 ]
 ignore_missing_imports = true
