@@ -9,8 +9,8 @@ from .enums import UserRole
 
 
 class UserBase(BaseModel):
-    first_name: str
-    last_name: str
+    first_name: str = Field(..., max_length=64)
+    last_name: str = Field(..., max_length=64)
     role: UserRole
     is_active: bool = True
 
@@ -22,7 +22,7 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    password: str
+    password: str = Field(..., min_length=4)
 
 
 class UserUpdate(UserBase):
