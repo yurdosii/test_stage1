@@ -24,6 +24,10 @@ flake8 = "^6.0.0"
 isort = "^5.12.0"
 mypy = "^1.2.0"
 pre-commit = "^3.3.1"
+pytest = "^7.3.1"
+pytest-mock = "^3.10.0"
+httpx = "^0.24.0"
+pytest-async-mongodb = {git = "https://github.com/gonzaloverussa/pytest-async-mongodb.git"}
 
 [build-system]
 requires = ["poetry-core"]
@@ -56,3 +60,10 @@ module = [
   "passlib.context.*",
 ]
 ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+async_mongodb_fixture_dir = "tests/fixtures"
+
+async_mongodb_fixtures = [
+  "users"
+]

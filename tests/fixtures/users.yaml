@@ -1,0 +1,19 @@
+-
+  first_name: "admin_name"
+  last_name: "admin_last"
+  role: "admin"
+  is_active: true
+  created_at: "2023-05-04T06:43:29.104000"
+  last_login: "2023-05-04T07:05:27.370000"
+  hashed_pass: "$2b$12$wMgDMfp5ctFkwby9aQYFB.4xKggPwg5M20LLiOC3Isj6yN.6E4sxm"
+  id: "645354116c906bc9fbec288b"
+
+-
+  first_name: "dev_name"
+  last_name: "dev_last"
+  role: "dev"
+  is_active: true
+  created_at: "2023-05-04T06:43:41.820000"
+  last_login: "2023-05-04T06:43:41.820000"
+  hashed_pass: "$2b$12$Ap5mJ2vYJUTj7bmfWaZpMOgvx4fgmwT2QYJpf3YGBL6UCvSnjgEjq"
+  id: "6453541e6c906bc9fbec288d"
