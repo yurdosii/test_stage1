@@ -5,13 +5,13 @@ from pydantic import BaseModel, Field, validator
 
 from src.models import PyObjectId
 
-from .enums import UserRole
+from .enums import UserRoleEnum
 
 
 class UserBase(BaseModel):
     first_name: str = Field(..., max_length=64)
     last_name: str = Field(..., max_length=64)
-    role: UserRole
+    role: UserRoleEnum
     is_active: bool = True
 
     @validator("first_name")

@@ -30,6 +30,8 @@ async def update_user_by_id(id: PyObjectId, user: UserUpdate) -> User:
         {"$set": dict(user)},
         return_document=ReturnDocument.AFTER,
     )
+    if db_user:
+        db_user = User(**db_user)
     return db_user
 
 
